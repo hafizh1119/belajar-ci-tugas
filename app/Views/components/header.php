@@ -1,3 +1,11 @@
+<?php
+use App\Models\DiskonModel;
+
+$diskonModel = new DiskonModel();
+$today = date('Y-m-d');
+$diskon = $diskonModel->where('tanggal', $today)->first();
+?>
+
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -16,6 +24,16 @@
         </form>
     </div><!-- End Search Bar -->
 
+    <?php if ($diskon): ?>
+        <li class="nav-item" style="list-style: none;">
+            <a class="nav-link nav-icon" href="#">
+                <span class="badge bg-warning badge-number">
+                   Hari ini ada diskon <?= number_format($diskon['nominal'], 0, '', '') ?> per item
+                </span>
+            </a>
+        </li>
+        <?php endif; ?>
+
     <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
 
@@ -24,6 +42,8 @@
                     <i class="bi bi-search"></i>
                 </a>
             </li><!-- End Search Icon-->
+
+            
 
             <li class="nav-item dropdown">
 
